@@ -8,6 +8,61 @@ title: "jQueryChop"
 
 <h4>Basic Usage</h4>
 
+{% highlight javascript %}
+// 50x50 pixel squares
+$('img').squares(50, 50);
+
+// Alternative, there is a shorthand for "ribbons" which are as tall as the image
+// 10x(image height) pixel rectangles
+$('img').ribbons(10);
+{% endhighlight %}
+
+<h4>Demo</h4>
+
+<p>To demonstrate, I'll be using the <a href="https://github.com/lrbabe/jquery.rotate.js">jquery.rotate</a> plugin, slicing an image into 50x50 squares and randomly spinning them 360 degrees.</p>
+
+<p>Source HTML:</p>
+{% highlight javascript %}
+<img id="myImage" src="images/Assassins-Creed-Brotherhood.jpg" />
+{% endhighlight %}
+
+<p>Source Javascript:</p>
+{% highlight javascript %}
+jQuery('#myImage').squares(50, 50);
+
+setTimeout(function() {
+  jQuery('canvas').each(function() {
+    var c = jQuery(this);
+    setTimeout(function() {
+      c.animate({rotate: '360deg'}, 2500);
+    }, (Math.random() * 1000));
+  });
+}, 1000);
+{% endhighlight %}
+
+<p>Wait for it&hellip;</p>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://github.com/lrbabe/jquery.rotate.js/raw/master/jquery.rotate.js"></script>
+<script type="text/javascript" src="https://github.com/secondstory/jqueryChop/raw/master/jqueryChop.js"></script>
+<img id="myImage" src="images/Assassins-Creed-Brotherhood.jpg" />
+<script type="text/javascript">
+  jQuery.noConflict();
+  jQuery(window).load(function() {
+    jQuery('#myImage').squares(50, 50);
+    
+    setTimeout(function() {
+      jQuery('canvas').each(function() {
+        var c = jQuery(this);
+        setInterval(function() {
+          setTimeout(function() {
+            c.animate({rotate: '360deg'}, 2500);
+          }, (Math.random() * 1000));
+        }, 5000);
+      });
+    }, 1000);
+  });
+</script>
+<br />
 <h3>License</h3>
 <p>This code is provided under the <a href="http://github.com/secondstory/secondstoryjs-router/blob/master/LICENSE">MIT License</a>.</p>
 
